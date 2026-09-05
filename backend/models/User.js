@@ -6,6 +6,13 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true
+  },
   email: {
     type: String,
     required: true,
@@ -15,6 +22,14 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  resetOTP: {
+    type: String,
+    default: null
+  },
+  resetOTPExpiry: {
+    type: Date,
+    default: null
   }
 }, {
   timestamps: true

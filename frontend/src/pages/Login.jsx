@@ -6,7 +6,7 @@ function Login() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: "",
+    identifier: "",
     password: "",
   });
 
@@ -31,10 +31,8 @@ function Login() {
 
       setMessage(response.data.message || "Login successful");
 
-      // Save JWT token
       localStorage.setItem("token", response.data.token);
 
-      // Save user information if returned by backend
       if (response.data.user) {
         localStorage.setItem(
           "user",
@@ -42,7 +40,6 @@ function Login() {
         );
       }
 
-      // Go to dashboard
       setTimeout(() => {
         navigate("/dashboard");
       }, 500);
@@ -76,13 +73,13 @@ function Login() {
         <form onSubmit={handleSubmit}>
 
           <div className="form-group">
-            <label>Email</label>
+            <label>Username or Email</label>
 
             <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
+              type="text"
+              name="identifier"
+              placeholder="Enter your username or email"
+              value={formData.identifier}
               onChange={handleChange}
               required
             />
@@ -100,6 +97,23 @@ function Login() {
               required
             />
           </div>
+
+          <p style={{ textAlign: "right", marginBottom: "12px" }}>
+            <button
+              type="button"
+              onClick={() => navigate("/forgot-password")}
+              style={{
+                background: "none",
+                border: "none",
+                color: "var(--primary)",
+                cursor: "pointer",
+                fontSize: "13px",
+                padding: 0,
+              }}
+            >
+              Forgot password?
+            </button>
+          </p>
 
           <button type="submit">
             Login
